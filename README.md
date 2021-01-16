@@ -8,8 +8,21 @@ I used data from Yelp [website](https://www.yelp.com/dataset/download) and the G
 
 ## Project Steps
 1.	Create a data architecture diagram to visualize how to ingest and migrate the data into Staging, Operational Data Store (ODS), and Data Warehouse evironments, so as to ultimately query the data for relationships between weather and Yelp reviews.
+![](architefture.png)
+- Data 1: USW00012918-temperature-degreeF.csv
+- Data 2: USW00012918-HOUSTON_WILLIAM_P_HOBBY_AP-precipitation-inch.csv
+- Data 3: covid_19_dataset.tar
+- Data 4: yelp_dataset.tar
 2.	Create a staging environment(schema) in Snowflake.
 3.	Upload all Yelp and Climate data to the staging environment. (Screenshots 1,2)
+![](temperature.png)
+![](precipitation.png)
+![](covid.png)
+![](business.png)
+![](tip.png)
+![](checkin.png)
+![](user.png)
+![](review.png)
 4.	Create an ODS environment(aka schema).
 5.	Draw an entity-relationship (ER) diagram to visualize the data structure.
 6.	Migrate the data into the ODS environment. (Screenshots 3,4,5,6)
