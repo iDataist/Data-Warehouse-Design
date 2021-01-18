@@ -1,0 +1,113 @@
+fact
+-
+id int PK
+review_dimention_id int FK >- review_dimention.id
+user_dimention_id int FK >- user_dimention.id
+business_dimention_id int FK >- business_dimention.id
+tip_id int FK >- tip_dimention.tip_id
+checkin_id int FK >- checkin_dimention.checkin_id
+covid_id int FK >- covid_features_dimention.covid_id
+temperature_id int FK >- temperature_dimention.temperature_id
+precipitation_id int FK >- precipitation_dimention.precipitation_id
+date timestamp
+
+temperature_dimention
+-
+temperature_id int PK
+date_recorded date
+min_recorded float
+max_recorded float
+min_normal float
+max_normal float
+
+precipitation_dimention
+-
+precipitation_id int PK
+date_recorded date
+precipitation float
+precipitation_normal float
+
+covid_features_dimention
+-
+covid_id int PK
+business_id string
+highlights string
+delivery_or_takeout string
+grubhub_enabled string
+call_to_action_enabled string
+request_a_quote_enabled string
+covid_banner string
+temporary_closed_until string
+virtual_services_offered string
+
+business_dimention
+-
+id int PK
+business_id string
+name string
+address string
+city string
+state string
+postal_code string
+latitude float
+longitude float
+stars float
+review_count int
+is_open int
+attributes string
+categories string
+hours string
+
+tip_dimention
+-
+tip_id int PK
+user_id string
+business_id string
+text string
+date timestamp
+compliment_count int
+
+checkin_dimention
+-
+checkin_id int
+business_id string
+date string
+
+user_dimention
+-
+id int PK
+user_id string
+name string
+review_count int
+yelping_since string
+useful int
+funny int
+cool int
+elite string
+friends string
+fans int
+average_stars float
+compliment_hot int
+compliment_more int
+compliment_profile int
+compliment_cute int
+compliment_list int
+compliment_note int
+compliment_plain int
+compliment_cool int
+compliment_funny int
+compliment_writer int
+compliment_photos int
+
+review_dimention
+-
+id int
+review_id string
+user_id string
+business_id string
+stars int
+useful int
+funny int
+cool int
+text string
+date timestamp
