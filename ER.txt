@@ -1,0 +1,138 @@
+temperature
+rel review
+-
+
+precipitation
+rel review
+-
+
+covid_features
+rel business
+-
+
+business
+-
+
+tip
+rel user
+-
+
+checkin
+rel business
+-
+
+user
+-
+
+review
+rel review
+rel user
+rel business
+-
+
+
+
+
+
+
+
+temperature
+-
+temperature_id int PK
+date_recorded date
+min_recorded float
+max_recorded float
+min_normal float
+max_normal float
+
+precipitation
+-
+precipitation_id int PK
+date_recorded date
+precipitation float
+precipitation_normal float
+
+covid_features
+-
+covid_id int PK
+business_id string
+highlights string
+delivery_or_takeout string
+grubhub_enabled string
+call_to_action_enabled string
+request_a_quote_enabled string
+covid_banner string
+temporary_closed_until string
+virtual_services_offered string
+
+business
+-
+id int PK
+business_id string
+name string
+address string
+city string
+state string
+postal_code string
+latitude float
+longitude float
+stars float
+review_count int
+is_open int
+attributes string
+categories string
+hours string
+
+tip
+-
+tip_id int PK
+user_id string
+business_id string
+text string
+date timestamp
+compliment_count int
+
+checkin
+-
+checkin_id int
+business_id string
+date string
+
+user
+-
+id int PK
+user_id string
+name string
+review_count int
+yelping_since string
+useful int
+funny int
+cool int
+elite string
+friends string
+fans int
+average_stars float
+compliment_hot int
+compliment_more int
+compliment_profile int
+compliment_cute int
+compliment_list int
+compliment_note int
+compliment_plain int
+compliment_cool int
+compliment_funny int
+compliment_writer int
+compliment_photos int
+
+review
+-
+id int
+review_id string
+user_id string
+business_id string
+stars int
+useful int
+funny int
+cool int
+text string
+date timestamp
