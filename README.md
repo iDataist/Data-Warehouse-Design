@@ -8,11 +8,11 @@ I used data from Yelp [website](https://www.yelp.com/dataset/download) and the G
 
 ## Project Steps
 1.	Create a data architecture diagram to visualize how to ingest and migrate the data into Staging, Operational Data Store (ODS), and Data Warehouse evironments, so as to ultimately query the data for relationships between weather and Yelp reviews.
-![](architefture.png)
-- Data 1: USC00362574-temperature-degreeFcsv
-- Data 2: USC00362574-EMSWORTH_L_D_OHIO_RIVER-precipitation-inch.csv
-- Data 3: covid_19_dataset.tar
-- Data 4: yelp_dataset.tar
+![](architecture.png)
+- Data 1: yelp_dataset.tar
+- Data 2: covid_19_dataset.tar
+- Data 3: USC00362574-temperature-degreeFcsv
+- Data 4: USC00362574-EMSWORTH_L_D_OHIO_RIVER-precipitation-inch.csv
 2.	Create a staging environment(schema).
 ```
 create schema staging;
@@ -36,8 +36,8 @@ create table temperature(
     max_normal float
 );
 
-put file:///Users/huiren/Downloads/USC00362574-temperature-degreeFcsv @my_csv_stage auto_compress=true;
-copy into temperature from @my_csv_stage/USC00362574-temperature-degreeFcsv.gz file_format = (format_name = csv_format) on_error = 'skip_file';
+put file:///Users/huiren/Downloads/USC00362574-temperature-degreeF.csv @my_csv_stage auto_compress=true;
+copy into temperature from @my_csv_stage/USC00362574-temperature-degreeF.csv.gz file_format = (format_name = csv_format) on_error = 'skip_file';
 
 create table precipitation(
     date string not null,
@@ -132,6 +132,8 @@ put file:///Users/huiren/Downloads/yelp_academic_dataset_review_12.json @my_json
 copy into review from @my_json_stage/yelp_academic_dataset_review_12.json.gz file_format = (format_name = json_format) on_error = 'skip_file';
 
 ```
+![](staging.png)
+
 4.	Create an ODS environment(schema).
 ```
 create schema ODS;
@@ -410,6 +412,8 @@ select
 from
     staging.review;
 ```
+![](ods.png)
+
 7. Create a view to integrate climate and Yelp data.
 ```
 create
@@ -429,7 +433,6 @@ where
     b.city = 'Pittsburgh'
     and b.state = 'PA';
 ```
-
 8. Create an DWH environment(schema).
 ```
 create schema DWH;
@@ -698,19 +701,27 @@ alter table
     fact
 add
     constraint fkey_review_id foreign key (review_dimention_id) references review_dimention (id);
+
+ALTER TABLE
+    tip_dimention DROP COLUMN user_id,
+    business_id;
+
+ALTER TABLE
+    review_dimention DROP COLUMN user_id,
+    business_id;
+
+ALTER TABLE
+    covid_features_dimention DROP COLUMN business_id;
+
+ALTER TABLE
+    checkin_dimention DROP COLUMN business_id;
 ```
-
-11. Raw files, staging, ODS and DWH tables (and sizes).
-
-- Raw files
-![](raw_file.png)
-- Staging
-![](staging.png)
-- ODS
-![](ods.png)
-- DWH
 ![](dwh.png)
-12. Query the Data Warehouse to determine how weather affects Yelp reviews.
+
+11.  Name and size for raw files, staging tables, ODS tables and DWH tables.
+![](size.png)
+
+12.  Query the Data Warehouse to determine how weather affects Yelp reviews.
 ```
 create
 or replace view business_rating_report as
