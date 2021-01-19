@@ -726,11 +726,16 @@ ALTER TABLE
 create
 or replace view business_rating_report as
 select
-    b.name,
-    t.min_recorded,
-    t.max_recorded,
+    b.name as business_name,
+    r.date,
+    r.stars,
+    t.min_recorded as min_temperature,
+    t.max_recorded as max_temperature,
+    t.min_normal as thirty_year_average_min_temperature,
+    t.max_normal as thirty_year_average_max_temperature,
     p.precipitation,
-    r.stars
+    p.precipitation_normal as thirty_year_average_precipitation
+
 from
     fact f
     join business_dimention b on f.business_dimention_id = b.id
@@ -741,19 +746,7 @@ where
     b.city = 'Pittsburgh'
     and b.state = 'PA';
 
-create
-or replace view weather_impact_analysis as
-select
-    stars,
-    avg(min_recorded),
-    avg(max_recorded),
-    avg(precipitation)
-from
-    business_rating_report
-group by
-    stars
-order by
-    stars;
+select * from business_rating_report limit 20;
 ```
-![](analysis.png)
+![](business_rating_report.png)
 
