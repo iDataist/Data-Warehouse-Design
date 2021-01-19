@@ -672,6 +672,20 @@ alter table
 add
     constraint fkey_review_id foreign key (review_dimention_id) references review_dimention (id);
 
+ALTER TABLE
+    tip_dimention DROP COLUMN user_id,
+    business_id;
+
+ALTER TABLE
+    review_dimention DROP COLUMN user_id,
+    business_id;
+
+ALTER TABLE
+    covid_features_dimention DROP COLUMN business_id;
+
+ALTER TABLE
+    checkin_dimention DROP COLUMN business_id;
+
 -- Reports the business name, temperature, precipitation, and ratings
 create
 or replace view business_rating_report as
