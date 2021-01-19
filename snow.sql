@@ -1,6 +1,3 @@
--- login
-snowsql -a JNA30169 -u dataist
-
 -- split the large Json files into smaller pieces
 wc -l yelp_academic_dataset_user.json
 split -l 350000 yelp_academic_dataset_user.json
